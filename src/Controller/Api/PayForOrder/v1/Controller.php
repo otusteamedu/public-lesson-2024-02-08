@@ -31,14 +31,6 @@ class Controller
             return new JsonResponse(['success' => false, 'message' => 'Order not found'], Response::HTTP_NOT_FOUND);
         }
 
-        if ($order->isPaid() || $order->isCancelled()) {
-            return new JsonResponse(['success' => false, 'message' => 'Invalid order status'], Response::HTTP_BAD_REQUEST);
-        }
-
-        if ($orderPaymentData->sum !== $order->getSum()) {
-            return new JsonResponse(['success' => false, 'message' => 'Wrong sum provided'], Response::HTTP_BAD_REQUEST);
-        }
-
         try {
             $this->orderService->makePayment($orderPaymentData->sum, $orderPaymentData->cardNumber, $orderPaymentData->owner, $orderPaymentData->cvv);
         } catch (AcquiringException $e) {

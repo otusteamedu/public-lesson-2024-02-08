@@ -2,8 +2,10 @@
 
 namespace App\Controller\Api\PayForOrder\v1\Input;
 
+use App\Validation\OrderSumAndStatusConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[OrderSumAndStatusConstraint]
 class OrderPaymentData
 {
     public function __construct(
