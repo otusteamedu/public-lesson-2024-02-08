@@ -4,6 +4,7 @@ namespace App\Validation;
 
 use App\Controller\Api\PayForOrder\v1\Input\OrderPaymentData;
 use App\Entity\Order;
+use App\Exception\OrderNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -28,9 +29,7 @@ class OrderSumAndStatusConstraintValidator extends ConstraintValidator
 
         $order = $this->entityManager->getRepository(Order::class)->find($value->orderId);
         if ($order === null) {
-            $this->context->buildViolation('Order not found')->addViolation();
-
-            return;
+            throw new OrderNotFoundException();
         }
 
         if ($order->isPaid() || $order->isCancelled()) {

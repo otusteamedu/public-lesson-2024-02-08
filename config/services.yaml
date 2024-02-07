@@ -26,3 +26,7 @@ services:
     App\EventListener\KernelViewEventListener:
         tags:
             - { name: kernel.event_listener, event: kernel.view }
+
+    App\EventListener\KernelExceptionEventListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
