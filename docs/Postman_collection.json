@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "88f47f0f-cfa1-4b4c-9562-76f1d750cce1",
+		"name": "Public lesson 2024-02-08",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30057528"
+	},
+	"item": [
+		{
+			"name": "AcquiringException",
+			"item": [
+				{
+					"name": "Not enough money",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "700",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "1234567890abcdef",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Me",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid card number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Me",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid owner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "1234567890abcdef",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Fake",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid cvv",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "1234567890abcdef",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Me",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bad Request",
+			"item": [
+				{
+					"name": "Already paid order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "1100",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "1234567890abcdef",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Me",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong sum order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "1100",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "1234567890abcdef",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Me",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelled order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "orderId",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "sum",
+									"value": "1200",
+									"type": "text"
+								},
+								{
+									"key": "cardNumber",
+									"value": "1234567890abcdef",
+									"type": "text"
+								},
+								{
+									"key": "owner",
+									"value": "Me",
+									"type": "text"
+								},
+								{
+									"key": "cvv",
+									"value": "000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:7777/api/pay-for-order/v1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7777",
+							"path": [
+								"api",
+								"pay-for-order",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Not existing order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "orderId",
+							"value": "111",
+							"type": "text"
+						},
+						{
+							"key": "sum",
+							"value": "1100",
+							"type": "text"
+						},
+						{
+							"key": "cardNumber",
+							"value": "1234567890abcdef",
+							"type": "text"
+						},
+						{
+							"key": "owner",
+							"value": "Me",
+							"type": "text"
+						},
+						{
+							"key": "cvv",
+							"value": "000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7777/api/pay-for-order/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"api",
+						"pay-for-order",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OK order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "orderId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "sum",
+							"value": "100",
+							"type": "text"
+						},
+						{
+							"key": "cardNumber",
+							"value": "1234567890abcdef",
+							"type": "text"
+						},
+						{
+							"key": "owner",
+							"value": "Me",
+							"type": "text"
+						},
+						{
+							"key": "cvv",
+							"value": "000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:7777/api/pay-for-order/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7777",
+					"path": [
+						"api",
+						"pay-for-order",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
