@@ -23,7 +23,7 @@ class Controller
     }
 
     #[Route(path: '/api/pay-for-order/v1', methods: ['POST'])]
-    public function __invoke(#[MapRequestPayload] OrderPaymentData $orderPaymentData): Response
+    public function __invoke(#[MapRequestPayload] OrderPaymentData $orderPaymentData): Order|Response
     {
         /** @var Order|null $order */
         $order = $this->entityManager->getRepository(Order::class)->find($orderPaymentData->orderId);
@@ -40,11 +40,6 @@ class Controller
         $order->setIsPaid(true);
         $this->entityManager->flush();
 
-        return new JsonResponse(
-            [
-                'success' => true,
-                'order' => ['id' => $order->getId(), 'sum' => $order->getSum(), 'isPaid' => $order->isPaid()]
-            ]
-        );
+        return $order;
     }
 }
