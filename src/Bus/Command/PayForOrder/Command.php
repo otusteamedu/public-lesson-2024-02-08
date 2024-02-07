@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller\Api\PayForOrder\v1\Input;
+namespace App\Bus\Command\PayForOrder;
 
 use App\Validation\OrderSumAndStatusConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[OrderSumAndStatusConstraint]
-class OrderPaymentData
+class Command
 {
     public function __construct(
         public readonly int $orderId,

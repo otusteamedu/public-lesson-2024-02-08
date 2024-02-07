@@ -2,7 +2,7 @@
 
 namespace App\Validation;
 
-use App\Controller\Api\PayForOrder\v1\Input\OrderPaymentData;
+use App\Bus\Command\PayForOrder\Command;
 use App\Entity\Order;
 use App\Exception\OrderNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,8 +23,8 @@ class OrderSumAndStatusConstraintValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, OrderSumAndStatusConstraint::class);
         }
 
-        if (!$value instanceof OrderPaymentData) {
-            throw new UnexpectedValueException($value, OrderPaymentData::class);
+        if (!$value instanceof Command) {
+            throw new UnexpectedValueException($value, Command::class);
         }
 
         $order = $this->entityManager->getRepository(Order::class)->find($value->orderId);

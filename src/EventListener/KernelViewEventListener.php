@@ -2,9 +2,8 @@
 
 namespace App\EventListener;
 
-use App\Controller\Api\PayForOrder\v1\Output\OrderData;
+use App\Bus\Query\GetOrderModelById\Result as OrderModel;
 use App\Controller\Api\PayForOrder\v1\Output\SuccessResponse;
-use App\Entity\Order;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -21,10 +20,8 @@ class KernelViewEventListener
     {
         $value = $event->getControllerResult();
 
-        if ($value instanceof Order) {
-            $orderData = new OrderData($value->getId(), $value->getSum(), $value->isPaid());
-            $successResponse = new SuccessResponse($orderData);
-            $event->setResponse($this->getHttpResponse($successResponse));
+        if ($value instanceof OrderModel) {
+            $event->setResponse($this->getHttpResponse(new SuccessResponse($value)));
         }
    }
 

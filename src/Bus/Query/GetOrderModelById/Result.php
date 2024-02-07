@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Api\PayForOrder\v1\Output;
+namespace App\Bus\Query\GetOrderModelById;
 
-class OrderData
+class Result
 {
     public function __construct(
         private readonly int $id,

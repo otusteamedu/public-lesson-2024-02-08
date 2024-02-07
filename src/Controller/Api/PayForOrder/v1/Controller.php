@@ -2,14 +2,10 @@
 
 namespace App\Controller\Api\PayForOrder\v1;
 
-use App\Controller\Api\PayForOrder\v1\Input\OrderPaymentData;
-use App\Entity\Order;
-use App\Exception\AcquiringException;
-use App\Exception\OrderNotFoundException;
-use App\Exception\UnprocessableCardException;
-use App\Service\OrderService;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
+use App\Bus\Command\PayForOrder\Command as PayForOrderCommand;
+use App\Bus\Command\PayForOrder\Handler as CommandHandler;
+use App\Bus\Query\GetOrderModelById\Handler as QueryHandler;
+use App\Bus\Query\GetOrderModelById\Result as OrderModel;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,26 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class Controller
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly OrderService $orderService,
+        private readonly CommandHandler $commandHandler,
+        private readonly QueryHandler $queryHandler,
     ) {
     }
 
     #[Route(path: '/api/pay-for-order/v1', methods: ['POST'])]
-    public function __invoke(#[MapRequestPayload] OrderPaymentData $orderPaymentData): Order
+    public function __invoke(#[MapRequestPayload] PayForOrderCommand $command): OrderModel
     {
-        /** @var Order $order */
-        $order = $this->entityManager->getRepository(Order::class)->find($orderPaymentData->orderId);
+        ($this->commandHandler)($command);
 
-        try {
-            $this->orderService->makePayment($orderPaymentData->sum, $orderPaymentData->cardNumber, $orderPaymentData->owner, $orderPaymentData->cvv);
-        } catch (AcquiringException $e) {
-            throw new UnprocessableCardException($e->getMessage());
-        }
-
-        $order->setIsPaid(true);
-        $this->entityManager->flush();
-
-        return $order;
+        return ($this->queryHandler)($command->orderId);
     }
 }
